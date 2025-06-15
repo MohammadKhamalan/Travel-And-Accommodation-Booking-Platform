@@ -1,0 +1,47 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+Debug/
+Release/
+
+# Rider IDE
+.idea/
+
+# ASP.NET Core
+appsettings*.json
+
+# User-specific files
+*.rsuser
+*.psess
+*.vsp
+*.vspscc
+
+# NuGet packages
+*.nupkg
+packages/
+
+# Logs
+*.log
+
+# Publish output
+publish/
+
+# Resharper files
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Others
+*.dbmdl
+*.bak
+*.backup
+
+# Azure Functions build
+bin/
+obj/
