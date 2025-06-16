@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TravelAndAccommodationBookingPlatform.Core.Entities
+namespace TravelAndAccommodationBookingPlatform.Core.Entities;
+
+public class Owner : Person
 {
-    public class Owner : Person
-    {
-        public ICollection<Hotel> Hotels { get; set; } = new List<Hotel>();
-    }
+    public ICollection<Hotel> Hotels { get; set; } = new List<Hotel>();
 }

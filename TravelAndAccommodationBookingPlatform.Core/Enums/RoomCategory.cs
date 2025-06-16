@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TravelAndAccommodationBookingPlatform.Core.Enums
 {
-    public enum RoomType
+    public enum RoomCategory
     {
         Double,
         Suite,

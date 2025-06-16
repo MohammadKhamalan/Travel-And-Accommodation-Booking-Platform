@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TravelAndAccommodationBookingPlatform.Core.Entities
-{
-    public abstract class EntityBase
-    {
-        public Guid Id { get; set; }
+namespace TravelAndAccommodationBookingPlatform.Core.Entities;
 
-    }
+public abstract class EntityBase
+{
+    public Guid Id { get; set; }
+
 }

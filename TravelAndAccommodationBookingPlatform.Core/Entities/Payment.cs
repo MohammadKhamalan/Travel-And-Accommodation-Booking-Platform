@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TravelAndAccommodationBookingPlatform.Core.Enums;
 
 namespace TravelAndAccommodationBookingPlatform.Core.Entities;
 
@@ -14,7 +15,7 @@ public class Payment
     public PaymentStatus Status { get; set; }
     public double Amount { get; set; }
 
-    // Navigation property
+   
     public Booking Booking { get; set; }
 
 }
