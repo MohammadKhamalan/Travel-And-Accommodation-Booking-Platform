@@ -37,7 +37,7 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
 
         builder.HasOne(b => b.Payment)
               .WithOne(r => r.Booking)
-              .HasForeignKey<Review>(r => r.BookingId)
+              .HasForeignKey<Payment>(r => r.BookingId)
               .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(b => b.UserId);
