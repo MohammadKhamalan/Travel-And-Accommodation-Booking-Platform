@@ -26,10 +26,11 @@ public class RoomTypeConfiguration : IEntityTypeConfiguration<RoomType>
 
 
         builder.Property(rt => rt.PricePerNight)
-            .IsRequired();
-           
+            .IsRequired().HasPrecision(18, 2);
 
-       
+
+
+
         builder.HasMany(rt => rt.Amenities)
             .WithMany(a => a.RoomTypes);
 

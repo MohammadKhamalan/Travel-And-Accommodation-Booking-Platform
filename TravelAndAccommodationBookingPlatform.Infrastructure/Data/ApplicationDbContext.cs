@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelAndAccommodationBookingPlatform.Core.Entities;
+using TravelAndAccommodationBookingPlatform.Infrastructure.Extensions;
 
 namespace TravelAndAccommodationBookingPlatform.Infrastructure.Data
 {
@@ -31,6 +33,10 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+            DatabaseSeeder.SeedTables(modelBuilder);
+            base.OnModelCreating(modelBuilder);
+
         }
+       
     }
 }

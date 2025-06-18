@@ -27,7 +27,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Confi
 
             builder.Property(u => u.Email)
             .IsRequired()
-            .HasMaxLength(25);
+            .HasMaxLength(250);
           builder
           .HasIndex(user => user.Email)
           .IsUnique();
