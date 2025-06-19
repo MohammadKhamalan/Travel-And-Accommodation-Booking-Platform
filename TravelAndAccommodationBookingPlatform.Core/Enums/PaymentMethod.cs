@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TravelAndAccommodationBookingPlatform.Core.Enums
+namespace TravelAndAccommodationBookingPlatform.Core.Enums;
+
+public enum PaymentMethod
 {
-    class PaymentMethod
-    {
-    }
+    Cash,
+    CreditCard,
+    MobileWallet
 }
