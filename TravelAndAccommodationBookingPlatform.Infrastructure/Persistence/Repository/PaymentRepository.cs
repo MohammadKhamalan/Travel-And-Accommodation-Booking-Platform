@@ -14,7 +14,6 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<PaymentRepository> _logger;
-
         public PaymentRepository(ApplicationDbContext context, ILogger<PaymentRepository> logger)
         {
             _context = context;
