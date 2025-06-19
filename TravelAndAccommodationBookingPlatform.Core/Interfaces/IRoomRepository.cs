@@ -7,25 +7,12 @@ using TravelAndAccommodationBookingPlatform.Core.Entities;
 using TravelAndAccommodationBookingPlatform.Core.Models;
 
 namespace TravelAndAccommodationBookingPlatform.Core.Interfaces;
-
-public interface IRoomRepository
+public interface IRoomRepository : IGenericRepository<Room>
 {
-    public Task<PaginatedList<Room>>
-   GetAllAsync(string? searchQuery,
-       int pageNumber,
-       int pageSize);
-    public Task<PaginatedList<Room>>
-    GetRoomsByHotelIdAsync(Guid hotelId,
-        string? searchQuery,
-        int pageNumber,
-        int pageSize);
-    public Task<bool> CheckRoomBelongsToHotelAsync(Guid hotelId,
-        Guid roomId);
+
+    Task<PaginatedList<Room>> GetAllAsync(string? searchQuery, int pageNumber, int pageSize);
     public Task<Room?> GetByIdAsync(Guid roomId);
-    public Task<float> GetPriceForRoomWithDiscount(Guid roomId);
-    public Task<Room?> InsertAsync(Room room);
-    public Task UpdateAsync(Room room);
-    public Task DeleteAsync(Guid roomId);
-    public Task SaveChangesAsync();
-    public Task<bool> IsExistsAsync(Guid roomId);
+    Task<PaginatedList<Room>> GetRoomsByHotelIdAsync(Guid hotelId, string? searchQuery, int pageNumber, int pageSize);
+    Task<bool> CheckRoomBelongsToHotelAsync(Guid hotelId, Guid roomId);
+    Task<float> GetPriceForRoomWithDiscount(Guid roomId);
 }

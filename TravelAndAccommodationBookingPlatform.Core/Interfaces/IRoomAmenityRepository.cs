@@ -8,14 +8,10 @@ using TravelAndAccommodationBookingPlatform.Core.Models;
 
 namespace TravelAndAccommodationBookingPlatform.Core.Interfaces;
 
-public interface IRoomAmenityRepository
+public interface IRoomAmenityRepository : IGenericRepository<Amenity>
 {
-    public Task<PaginatedList<Amenity>>
-    GetAllAsync(string? searchQuery, int pageNumber, int pageSize);
+   
     public Task<Amenity?> GetByIdAsync(Guid amenityId);
-    public Task<Amenity?> InsertAsync(Amenity roomAmenity);
-    public Task UpdateAsync(Amenity roomAmenity);
-    public Task DeleteAsync(Guid amenityId);
-    public Task SaveChangesAsync();
-    public Task<bool> IsExistsAsync(Guid amenityId);
+    Task<PaginatedList<Amenity>> GetAllAsync(string? searchQuery, int pageNumber, int pageSize);
 }
+

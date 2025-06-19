@@ -7,17 +7,13 @@ using TravelAndAccommodationBookingPlatform.Core.Entities;
 
 namespace TravelAndAccommodationBookingPlatform.Core.Interfaces;
 
-public interface IUserRepository
+public interface IUserRepository : IGenericRepository<User>
 {
-    public Task AddUserAsync(User user);
     public Task<IReadOnlyList<User>> GetAllUsersAsync();
     public Task<User?> GetUserByIdAsync(Guid userId);
-    public Task UpdateUserAsync(User user);
-    public Task DeleteUserAsync(Guid userId);
-    public Task<bool> IsExistsAsync(Guid userId);
     public Task<Guid> GetGuestIdByEmailAsync(string email);
     public Task<List<Hotel>> GetRecentlyVisitedHotelsForGuestAsync(Guid guestId, int count);
     public Task<List<Hotel>> GetRecentlyVisitedHotelsForAuthenticatedGuestAsync(string email, int count);
     public Task<List<Booking>> GetBookingsForAuthenticatedGuestAsync(string email, int count);
-    public Task SaveChangesAsync();
+   
 }
