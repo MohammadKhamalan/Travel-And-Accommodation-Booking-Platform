@@ -127,9 +127,11 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
         public async Task<Invoice> GetInvoiceByBookingIdAsync(Guid bookingId)
         {
             var booking = await _context.Bookings
+                .Include(b => b.User)
                 .Include(b => b.Room)
                     .ThenInclude(r => r.Hotel)
                         .ThenInclude(h => h.Owner)
+                     
                 .FirstOrDefaultAsync(b => b.Id == bookingId);
 
             if (booking == null)
@@ -141,8 +143,8 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
                 BookingDate = booking.BookingDate,
                 Price = booking.Price,
                 HotelName = booking.Room.Hotel.Name,
-                OwnerName = $"{booking.Room.Hotel.Owner.FirstName} {booking.Room.Hotel.Owner.LastName}"
-
+                OwnerName = $"{booking.Room.Hotel.Owner.FirstName} {booking.Room.Hotel.Owner.LastName}",
+                GuestName = $"{booking.User.FirstName} {booking.User.LastName}"
             };
         }
 

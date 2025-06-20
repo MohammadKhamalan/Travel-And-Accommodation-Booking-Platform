@@ -13,5 +13,5 @@ public class Invoice
         public double Price { get; set; }
         public string HotelName { get; set; }
         public string OwnerName { get; set; }
-    
+    public string GuestName { get; set; }
 }
