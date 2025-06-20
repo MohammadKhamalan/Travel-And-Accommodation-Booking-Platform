@@ -14,9 +14,6 @@ Release/
 # Rider IDE
 .idea/
 
-# ASP.NET Core
-appsettings*.json
-
 # User-specific files
 *.rsuser
 *.psess
