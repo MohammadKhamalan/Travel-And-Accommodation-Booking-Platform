@@ -8,6 +8,7 @@ using TravelAndAccommodationBookingPlatform.Core.Entities;
 
 namespace TravelAndAccommodationBookingPlatform.API.Controllers
 {
+
     [ApiController]
     [Route("api/test-invoice")]
     public class InvoiceTestController : ControllerBase
