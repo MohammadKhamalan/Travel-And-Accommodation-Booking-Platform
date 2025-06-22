@@ -8,13 +8,14 @@ namespace TravelAndAccommodationBookingPlatform.Core.Models;
 
 public record HotelSearchResult
 {
-    public Guid CityId { get; set; }
-    public string CityName { get; set; }
-    public Guid HotelId { get; set; }
-    public string HotelName { get; set; }
-    public float Rating { get; set; }
-    public Guid RoomId { get; set; }
-    public string RoomType { get; set; }
-    public float RoomPricePerNight { get; set; }
-    public float Discount { get; set; }
+    public Guid CityId { get; init; }
+    public string CityName { get; init; }
+    public Guid HotelId { get; init; }
+    public string HotelName { get; init; }
+    public float Rating { get; init; }
+    public Guid RoomId { get; init; }
+    public string RoomType { get; init; }
+    public float RoomPricePerNight { get; init; }
+    public float Discount { get; init; }
 }
+

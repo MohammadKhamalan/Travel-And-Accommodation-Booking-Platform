@@ -4,17 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TravelAndAccommodationBookingPlatform.Core.Models
+namespace TravelAndAccommodationBookingPlatform.Core.Models;
+
+public record HotelSearchParameters
 {
-    public record HotelSearchParameters
-    {
-        public DateTime? CheckInDate { get; set; }
-        public DateTime? CheckOutDate { get; set; }
-        public string? CityName { get; set; }
-        public float? StarRate { get; set; }
-        public int? Adults { get; set; }
-        public int? Children { get; set; }
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
-    }
+    public DateTime? CheckInDate { get; init; }
+    public DateTime? CheckOutDate { get; init; }
+    public string? CityName { get; init; }
+    public float? StarRate { get; init; }
+    public int? Adults { get; init; }
+    public int? Children { get; init; }
+    public int PageNumber { get; init; }
+    public int PageSize { get; init; }
 }
