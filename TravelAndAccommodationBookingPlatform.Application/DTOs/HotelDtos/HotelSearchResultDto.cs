@@ -11,4 +11,5 @@ public class HotelSearchResultDto
     public string RoomType { get; init; }
     public float RoomPricePerNight { get; init; }
     public float Discount { get; init; }
+   
 }

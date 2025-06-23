@@ -7,4 +7,5 @@ public class CreateRoomDto
 
     public int AdultsCapacity { get; set; }
     public int ChildrenCapacity { get; set; }
+    public float Rating { get; set; }
 }
