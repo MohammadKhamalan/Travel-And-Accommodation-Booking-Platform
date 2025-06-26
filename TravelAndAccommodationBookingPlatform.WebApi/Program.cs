@@ -1,10 +1,14 @@
-using Microsoft.EntityFrameworkCore;
-using TravelAndAccommodationBookingPlatform.Application.DTOs.UserDtos;
+using AutoMapper;
+using TravelAndAccommodationBookingPlatform.Application.Commands.UserCommands;
 using TravelAndAccommodationBookingPlatform.Application.Profiles;
-using TravelAndAccommodationBookingPlatform.Infrastructure.Data;
 using TravelAndAccommodationBookingPlatform.Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(CreateUserCommand).Assembly); 
+});
+
 builder.Services.AddAutoMapper(typeof(UserProfile).Assembly);
 
 
