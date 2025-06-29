@@ -8,4 +8,5 @@ public class TrendingCityResponseDto
 
     public string Name { get; init; }
     public string Country { get; init; }
+  
 }
