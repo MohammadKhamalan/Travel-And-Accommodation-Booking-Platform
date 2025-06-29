@@ -23,18 +23,18 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, Guid>
         var user = new User
         {
             Id = Guid.NewGuid(),
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            Email = request.Email,
-            DateOfBirth = request.DateOfBirth,
-            PhoneNumber = request.PhoneNumber,
-            Password = request.Password,
-            Role = (UserRole)request.Role
+            FirstName = request.Dto.FirstName,
+            LastName = request.Dto.LastName,
+            Email = request.Dto.Email,
+            DateOfBirth = request.Dto.DateOfBirth,
+            PhoneNumber = request.Dto.PhoneNumber,
+            Password = request.Dto.Password,
+            Role = request.Dto.Role
         };
 
         await _userRepository.InsertAsync(user);
         await _userRepository.SaveChangesAsync();
-
         return user.Id;
     }
+
 }
