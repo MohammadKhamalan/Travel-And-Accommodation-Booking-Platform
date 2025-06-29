@@ -14,4 +14,5 @@ public class Invoice
         public string HotelName { get; set; }
         public string OwnerName { get; set; }
     public string GuestName { get; set; }
+    public string GuestEmail { get; set; }
 }
