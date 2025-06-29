@@ -8,7 +8,9 @@ namespace TravelAndAccommodationBookingPlatform.Application.Mappings.Profiles
     {
         public BookingProfile()
         {
-           
+            CreateMap<Invoice, InvoiceDto>();
+
+
             CreateMap<Booking, BookingResponseDto>()
                 .ForMember(dest => dest.RoomType, opt => opt.MapFrom(src => src.Room.RoomType.RoomCategory.ToString()))
                 .ForMember(dest => dest.GuestFullName, opt => opt.MapFrom(src => $"{src.User.FirstName} {src.User.LastName}"));

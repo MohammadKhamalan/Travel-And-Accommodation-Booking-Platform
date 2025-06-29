@@ -8,9 +8,9 @@ public class AmenityProfile : Profile
 {
     public AmenityProfile()
     {
-        
-        CreateMap<Amenity, RoomAmenityDto>()
-            .ForMember(dest => dest.RoomTypeIds, opt => opt.MapFrom(src => src.RoomTypes.Select(rt => rt.RoomTypeId).ToList()));
+
+        CreateMap<Amenity, RoomAmenityDto>();
+          
 
      
         CreateMap<CreateAmenityDto, Amenity>();

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TravelAndAccommodationBookingPlatform.Application.Commands.HotelCommands;
 using TravelAndAccommodationBookingPlatform.Application.DTOs.HotelDtos;
 using TravelAndAccommodationBookingPlatform.Core.Entities;
 
@@ -17,7 +18,8 @@ namespace TravelAndAccommodationBookingPlatform.Application.Mappings.Profiles
           
             CreateMap<CreateHotelRequestDto, Hotel>();
 
-           
+            CreateMap<CreateHotelCommand, Hotel>();
+
             CreateMap<UpdateHotelRequestDto, Hotel>();
 
            
