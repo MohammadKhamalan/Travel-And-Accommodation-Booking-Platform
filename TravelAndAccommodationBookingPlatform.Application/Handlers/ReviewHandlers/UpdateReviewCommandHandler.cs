@@ -3,6 +3,7 @@ using MediatR;
 using TravelAndAccommodationBookingPlatform.Application.Commands.ReviewCommands;
 using TravelAndAccommodationBookingPlatform.Application.DTOs.ReviewDtos;
 using TravelAndAccommodationBookingPlatform.Core.Entities;
+using TravelAndAccommodationBookingPlatform.Core.Exceptions;
 using TravelAndAccommodationBookingPlatform.Core.Interfaces;
 
 namespace TravelAndAccommodationBookingPlatform.Application.Handlers.ReviewHandlers;
@@ -20,17 +21,18 @@ public class UpdateReviewCommandHandler : IRequestHandler<UpdateReviewCommand, R
 
     public async Task<ReviewDto> Handle(UpdateReviewCommand request, CancellationToken cancellationToken)
     {
-        var updatedReview = new Review
-        {
-            Id = request.Id,
-            Comment = request.Comment,
-            Rating = request.Rating,
-            ReviewDate = DateTime.UtcNow
-        };
+        var review = await _repository.GetByIdAsync(request.Id);
+        if (review == null)
+            throw new NotFoundException("Review not found.");
 
-        await _repository.UpdateAsync(updatedReview);
+        review.Comment = request.Comment;
+        review.Rating = request.Rating;
+        review.ReviewDate = DateTime.UtcNow;
+
+        await _repository.UpdateAsync(review);
         await _repository.SaveChangesAsync();
 
-        return _mapper.Map<ReviewDto>(updatedReview);
+        return _mapper.Map<ReviewDto>(review);
     }
+
 }
