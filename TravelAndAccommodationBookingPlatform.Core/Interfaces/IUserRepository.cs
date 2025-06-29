@@ -12,6 +12,8 @@ public interface IUserRepository : IGenericRepository<User>
     public Task<IReadOnlyList<User>> GetAllUsersAsync();
     public Task<User?> GetUserByIdAsync(Guid userId);
     public Task<Guid> GetGuestIdByEmailAsync(string email);
+    
+         public Task<User?> GetUserByEmailAsync(string email);
     public Task<List<Hotel>> GetRecentlyVisitedHotelsForGuestAsync(Guid guestId, int count);
     public Task<List<Hotel>> GetRecentlyVisitedHotelsForAuthenticatedGuestAsync(string email, int count);
     public Task<List<Booking>> GetBookingsForAuthenticatedGuestAsync(string email, int count);

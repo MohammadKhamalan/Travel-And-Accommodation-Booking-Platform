@@ -15,4 +15,6 @@ public interface IRoomRepository : IGenericRepository<Room>
     Task<PaginatedList<Room>> GetRoomsByHotelIdAsync(Guid hotelId, string? searchQuery, int pageNumber, int pageSize);
     Task<bool> CheckRoomBelongsToHotelAsync(Guid hotelId, Guid roomId);
     Task<float> GetPriceForRoomWithDiscount(Guid roomId);
+    Task<Room?> GetByIdWithRoomTypeAsync(Guid roomId);
+
 }
