@@ -63,6 +63,10 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
                 throw new NotFoundException($"User with email '{email}' not found.");
             return user.Id;
         }
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
 
         public async Task<List<Hotel>> GetRecentlyVisitedHotelsForGuestAsync(Guid guestId, int count)
         {

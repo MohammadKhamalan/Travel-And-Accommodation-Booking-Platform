@@ -144,7 +144,8 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
                 Price = booking.Price,
                 HotelName = booking.Room.Hotel.Name,
                 OwnerName = $"{booking.Room.Hotel.Owner.FirstName} {booking.Room.Hotel.Owner.LastName}",
-                GuestName = $"{booking.User.FirstName} {booking.User.LastName}"
+                GuestName = $"{booking.User.FirstName} {booking.User.LastName}",
+                GuestEmail = $"{booking.User.Email}"
             };
         }
 

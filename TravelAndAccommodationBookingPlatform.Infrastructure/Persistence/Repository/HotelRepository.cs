@@ -71,6 +71,9 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
             try
             {
                 return await _context.Hotels
+                    .Include(h => h.City)
+                    .Include(h => h.Owner)
+                    .Include(h => h.Images)
                     .Include(h => h.Room)
                     .ThenInclude(r => r.RoomType)
                     .FirstOrDefaultAsync(h => h.Id == hotelId);
@@ -84,7 +87,10 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
 
         public async Task<PaginatedList<Hotel>> GetAllAsync(string? searchQuery, int pageNumber, int pageSize)
         {
-            var query = _context.Hotels.AsQueryable();
+            var query = _context.Hotels
+         .Include(h => h.City)
+         .Include(h => h.Owner)
+         .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(searchQuery))
                 query = query.Where(h => h.Name.Contains(searchQuery));
