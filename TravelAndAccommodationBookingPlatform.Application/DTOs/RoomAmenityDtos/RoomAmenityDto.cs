@@ -13,5 +13,4 @@ public class RoomAmenityDto
     public string Description { get; set; }
 
     
-    public List<Guid> RoomTypeIds { get; set; } = new();
 }
