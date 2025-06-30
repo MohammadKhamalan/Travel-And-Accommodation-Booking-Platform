@@ -34,8 +34,9 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.DependencyInjecti
             services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<IRoomAmenityRepository, RoomAmenityRepository>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
 
-           
+
             services.AddScoped<ITokenService, JwtTokenService>();
             services.AddScoped<IInvoiceService, InvoiceService>();
             services.AddScoped<IPdfGenerator, PdfGeneratorService>();
