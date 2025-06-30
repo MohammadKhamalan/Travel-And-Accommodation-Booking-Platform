@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -43,7 +44,12 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    });
+    })
+     .AddFluentValidation(fv =>
+     {
+         
+         fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+     });
 
 
 builder.Services.AddSwaggerGen(options =>
