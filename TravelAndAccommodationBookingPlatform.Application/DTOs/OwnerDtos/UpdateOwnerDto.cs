@@ -4,7 +4,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.DTOs.OwnerDtos;
 
 public class UpdateOwnerDto
 {
-    [Required]
+   
     public Guid Id { get; set; }
 
 
@@ -14,7 +14,6 @@ public class UpdateOwnerDto
     public string LastName { get; set; } = null!;
 
 
-    [EmailAddress]
     public string Email { get; set; } = null!;
 
 

@@ -4,9 +4,8 @@ namespace TravelAndAccommodationBookingPlatform.Application.DTOs.ReviewDtos;
 
 public class CreateReviewDto
 {
-    [Required]
+    
     public Guid BookingId { get; set; }
-    public string Comment { get; set; }
-    [Required]
+    public string Comment { get; set; }    
     public float Rating { get; set; }
 }
