@@ -182,6 +182,7 @@ public class BookingController : ControllerBase
 
     /// <summary>
     /// Generates and returns the PDF invoice for the specified booking.
+    /// <param name="bookingId">Booking ID.</param>
     /// </summary>
     [HttpGet("{bookingId}/invoice")]
     [Authorize]

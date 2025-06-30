@@ -43,6 +43,8 @@ public class OwnersController : ControllerBase
 
     /// <summary>
     /// Get an owner by ID.
+    /// <param name="id">The unique identifier of the owner.</param>
+    /// <returns>The owner details.</returns>
     /// </summary>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(OwnerDto), 200)]
@@ -99,6 +101,8 @@ public class OwnersController : ControllerBase
 
     /// <summary>
     /// Update an existing owner.
+    /// <param name="id">The unique identifier of the owner.</param>
+    /// <returns>The owner details.</returns>
     /// </summary>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(OwnerDto), 200)]
@@ -133,6 +137,7 @@ public class OwnersController : ControllerBase
 
     /// <summary>
     /// Delete an owner by ID.
+    /// <param name="id">The unique identifier of the owner.</param>
     /// </summary>
     [HttpDelete("{id}")]
     [ProducesResponseType(204)]

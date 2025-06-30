@@ -78,7 +78,8 @@ public class RoomTypesController : ControllerBase
                 return BadRequest(ModelState);
 
             var id = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetRoomTypesByHotel), new { hotelId = command.RoomType }, id); // Modify if needed
+            return CreatedAtAction(nameof(CreateRoomType), new { id }, id);
+
         }
         catch (Exception ex)
         {
