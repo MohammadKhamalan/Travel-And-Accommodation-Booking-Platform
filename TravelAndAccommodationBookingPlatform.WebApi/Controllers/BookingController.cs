@@ -53,13 +53,9 @@ public class BookingController : ControllerBase
     {
         try
         {
-            
-            var isAvailable = await _mediator.Send(new CanBookRoomQuery
-            {
-                RoomId = dto.RoomId,
-                CheckInDate = dto.CheckInDate,
-                CheckOutDate = dto.CheckOutDate
-            });
+
+            var isAvailable = await _mediator.Send(new CanBookRoomQuery(dto.RoomId, dto.CheckInDate, dto.CheckOutDate));
+
 
             if (!isAvailable)
             {
@@ -108,7 +104,8 @@ public class BookingController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(Guid bookingId)
     {
-        var result = await _mediator.Send(new GetBookingByIdQuery { BookingId = bookingId });
+        var result = await _mediator.Send(new GetBookingByIdQuery(bookingId));
+
         return result is null ? NotFound() : Ok(result);
     }
 
@@ -153,11 +150,8 @@ public class BookingController : ControllerBase
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     public async Task<IActionResult> CheckExistence([FromQuery] Guid bookingId, [FromQuery] string guestEmail)
     {
-        var result = await _mediator.Send(new CheckBookingExistenceForGuestQuery
-        {
-            BookingId = bookingId,
-            GuestEmail = guestEmail
-        });
+        var result = await _mediator.Send(new CheckBookingExistenceForGuestQuery(bookingId, guestEmail));
+
 
         return Ok(result);
     }
@@ -170,13 +164,7 @@ public class BookingController : ControllerBase
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     public async Task<IActionResult> CanBook([FromQuery] Guid roomId, [FromQuery] DateTime checkIn, [FromQuery] DateTime checkOut)
     {
-        var result = await _mediator.Send(new CanBookRoomQuery
-        {
-            RoomId = roomId,
-            CheckInDate = checkIn,
-            CheckOutDate = checkOut
-        });
-
+        var result = await _mediator.Send(new CanBookRoomQuery(roomId, checkIn, checkOut));
         return Ok(result);
     }
 

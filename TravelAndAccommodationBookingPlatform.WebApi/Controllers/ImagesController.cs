@@ -82,7 +82,7 @@ public class ImagesController : ControllerBase
 
     /// <summary>
     /// Deletes an image by ID.
-    /// <param name="id">The unique identifier of the review.</param>
+    /// <param name="id">The unique identifier of the image.</param>
     /// <returns>The review details.</returns>
     /// </summary>
     [HttpDelete("{id}")]
