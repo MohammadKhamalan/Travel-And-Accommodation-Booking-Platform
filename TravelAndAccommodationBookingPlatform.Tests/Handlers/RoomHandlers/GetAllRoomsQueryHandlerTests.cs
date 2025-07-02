@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using TravelAndAccommodationBookingPlatform.Application.DTOs.RoomDtos;
 using TravelAndAccommodationBookingPlatform.Application.Handlers.RoomHandlers;
 using TravelAndAccommodationBookingPlatform.Application.Queries.RoomQueries;

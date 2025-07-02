@@ -25,6 +25,7 @@ public class HasOverlappingDiscountQueryHandlerTests
             ToDate = DateTime.UtcNow.AddDays(5)
         };
 
+
         repoMock.Setup(r => r.HasOverlappingDiscountAsync(query.RoomTypeId, query.FromDate, query.ToDate))
                 .ReturnsAsync(true);
 

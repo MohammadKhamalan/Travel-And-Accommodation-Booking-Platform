@@ -31,6 +31,7 @@ public class GetDiscountsByRoomTypeQueryHandlerTests
         repoMock.Setup(r => r.GetAllByRoomTypeIdAsync(roomTypeId, 1, 10)).ReturnsAsync(paged);
         mapperMock.Setup(m => m.Map<List<DiscountDto>>(discountList)).Returns(new List<DiscountDto>());
 
+
         var result = await handler.Handle(new GetDiscountsByRoomTypeQuery
         {
             RoomTypeId = roomTypeId,

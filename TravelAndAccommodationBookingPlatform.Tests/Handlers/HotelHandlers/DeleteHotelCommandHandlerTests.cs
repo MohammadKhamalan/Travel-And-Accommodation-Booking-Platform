@@ -34,6 +34,7 @@ namespace TravelAndAccommodationBookingPlatform.Tests.Handlers.HotelTest
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
+
             // Assert
             Assert.Equal(Unit.Value, result);
             _hotelRepositoryMock.Verify(r => r.DeleteAsync(hotelId), Times.Once);

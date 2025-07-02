@@ -15,6 +15,7 @@ namespace TravelAndAccommodationBookingPlatform.Tests.Handlers.DiscountHandlers;
 
 public class GetDiscountByIdQueryHandlerTests
 {
+
     [Fact]
     public async Task Handle_ShouldReturnDiscountDto()
     {

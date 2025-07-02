@@ -1,10 +1,5 @@
 ﻿using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TravelAndAccommodationBookingPlatform.Application.Handlers.RoomHandlers;
 using TravelAndAccommodationBookingPlatform.Application.Queries.RoomQueries;
 using TravelAndAccommodationBookingPlatform.Core.Interfaces;

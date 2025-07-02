@@ -44,5 +44,6 @@ public class CreateDiscountCommandHandlerTests
         // Assert
         capturedDiscount.Should().NotBeNull();
         result.Should().Be(capturedDiscount!.Id); 
+
     }
 }

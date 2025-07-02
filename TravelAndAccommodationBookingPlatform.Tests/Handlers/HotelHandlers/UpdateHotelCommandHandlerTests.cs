@@ -43,6 +43,8 @@ public class UpdateHotelCommandHandlerTests
             CityId = Guid.NewGuid()
         };
 
+
+
         var hotelEntity = new Hotel { Id = hotelId };
 
         var updatedDto = new HotelDto

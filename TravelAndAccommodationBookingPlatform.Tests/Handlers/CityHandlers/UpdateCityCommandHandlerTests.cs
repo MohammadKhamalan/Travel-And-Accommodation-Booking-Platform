@@ -55,3 +55,4 @@ public class UpdateCityCommandHandlerTests
         result.Name.Should().Be("Berlin");
     }
 }
+

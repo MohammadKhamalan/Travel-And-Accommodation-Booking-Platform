@@ -12,6 +12,7 @@ using TravelAndAccommodationBookingPlatform.Core.Interfaces;
 namespace TravelAndAccommodationBookingPlatform.Tests.Handlers.ReviewHandlers;
 public class DoesBookingHaveReviewQueryHandlerTests
 {
+
     [Fact]
     public async Task Handle_ShouldReturnTrue_IfReviewExists()
     {

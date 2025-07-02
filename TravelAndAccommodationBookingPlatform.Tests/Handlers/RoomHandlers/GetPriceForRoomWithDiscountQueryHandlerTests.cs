@@ -7,6 +7,7 @@ using TravelAndAccommodationBookingPlatform.Core.Interfaces;
 namespace TravelAndAccommodationBookingPlatform.Tests.Handlers.RoomHandlers;
 public class GetPriceForRoomWithDiscountQueryHandlerTests
 {
+
     [Fact]
     public async Task Handle_ShouldReturnDiscountedPrice()
     {

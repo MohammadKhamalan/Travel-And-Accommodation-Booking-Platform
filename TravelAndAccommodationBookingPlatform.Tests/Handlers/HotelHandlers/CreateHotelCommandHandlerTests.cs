@@ -42,7 +42,7 @@ public class CreateHotelCommandHandlerTests
 
         _hotelRepositoryMock
             .Setup(r => r.IsHotelNameAndAddressDuplicateAsync(command.Name, command.StreetAddress))
-            .ReturnsAsync(true); // Simulate that the hotel already exists
+            .ReturnsAsync(true); 
 
         // Act & Assert
         await Assert.ThrowsAsync<InvalidOperationException>(() => _handler.Handle(command, CancellationToken.None));

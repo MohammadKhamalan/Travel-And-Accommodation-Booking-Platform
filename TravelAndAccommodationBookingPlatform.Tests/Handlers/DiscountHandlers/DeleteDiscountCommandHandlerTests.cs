@@ -13,6 +13,7 @@ namespace TravelAndAccommodationBookingPlatform.Tests.Handlers.DiscountHandlers;
 
 public class DeleteDiscountCommandHandlerTests
 {
+
     [Fact]
     public async Task Handle_ShouldDeleteDiscountAndReturnUnit()
     {

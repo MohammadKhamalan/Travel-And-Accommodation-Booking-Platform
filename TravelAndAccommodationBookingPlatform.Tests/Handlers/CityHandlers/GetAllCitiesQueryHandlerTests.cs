@@ -17,6 +17,7 @@ namespace TravelAndAccommodationBookingPlatform.Tests.Handlers.CityHandlers;
 
 public class GetAllCitiesQueryHandlerTests
 {
+
     private readonly Mock<ICityRepository> _repositoryMock;
     private readonly Mock<IMapper> _mapperMock;
     private readonly GetAllCitiesQueryHandler _handler;

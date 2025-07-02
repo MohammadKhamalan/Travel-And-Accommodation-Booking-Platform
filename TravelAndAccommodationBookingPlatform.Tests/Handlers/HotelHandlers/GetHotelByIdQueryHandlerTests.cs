@@ -25,6 +25,7 @@ public class GetHotelByIdQueryHandlerTests
         _handler = new GetHotelByIdQueryHandler(_hotelRepositoryMock.Object, _mapperMock.Object);
     }
 
+
     [Fact]
     public async Task Handle_ShouldReturnHotelDto_WhenHotelExists()
     {

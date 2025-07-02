@@ -48,6 +48,7 @@ public class CreateCityCommandHandlerTests
         {
             city.Id = generatedId;  
             return city;            
+
         });
         _repositoryMock.Setup(r => r.SaveChangesAsync()).Returns(Task.CompletedTask);
 

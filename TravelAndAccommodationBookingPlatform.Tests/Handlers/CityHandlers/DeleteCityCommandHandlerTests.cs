@@ -15,6 +15,7 @@ public class DeleteCityCommandHandlerTests
 {
     private readonly Mock<ICityRepository> _repositoryMock;
     private readonly DeleteCityCommandHandler _handler;
+    
 
     public DeleteCityCommandHandlerTests()
     {
