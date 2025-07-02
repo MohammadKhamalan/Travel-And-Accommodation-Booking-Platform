@@ -8,6 +8,10 @@ namespace TravelAndAccommodationBookingPlatform.Application.Queries.BookingQueri
     {
         public Guid BookingId { get; set; }
 
-       
+        public GetBookingByIdQuery(Guid bookingId)
+        {
+            BookingId = bookingId;
+        }
+
     }
 }

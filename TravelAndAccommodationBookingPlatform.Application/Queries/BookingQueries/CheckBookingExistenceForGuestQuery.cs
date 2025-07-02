@@ -8,6 +8,11 @@ namespace TravelAndAccommodationBookingPlatform.Application.Queries.BookingQueri
         public Guid BookingId { get; set; }
         public string GuestEmail { get; set; }
 
-       
+        public CheckBookingExistenceForGuestQuery(Guid bookingId, string guestEmail)
+        {
+            BookingId = bookingId;
+            GuestEmail = guestEmail;
+        }
+
     }
 }
