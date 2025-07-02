@@ -17,4 +17,6 @@ public interface IHotelRepository : IGenericRepository<Hotel>
     Task<List<Room>> GetHotelAvailableRoomsAsync(Guid hotelId, DateTime checkInDate, DateTime checkOutDate);
     Task<PaginatedList<HotelSearchResult>> HotelSearchAsync(HotelSearchParameters searchParams);
     Task<List<FeaturedDeal>> GetFeaturedDealsAsync(int count);
+    Task<bool> IsHotelNameAndAddressDuplicateAsync(string name, string address);
+
 }
