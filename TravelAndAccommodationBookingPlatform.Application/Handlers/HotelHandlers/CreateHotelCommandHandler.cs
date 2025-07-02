@@ -20,9 +20,15 @@ public class CreateHotelCommandHandler : IRequestHandler<CreateHotelCommand, Gui
 
     public async Task<Guid> Handle(CreateHotelCommand request, CancellationToken cancellationToken)
     {
+        bool isDuplicate = await _repository.IsHotelNameAndAddressDuplicateAsync(request.Name, request.StreetAddress);
+
+        if (isDuplicate)
+            throw new InvalidOperationException("A hotel with the same name and address already exists.");
+
         var hotel = _mapper.Map<Hotel>(request);
         await _repository.InsertAsync(hotel);
         await _repository.SaveChangesAsync();
         return hotel.Id;
     }
+
 }

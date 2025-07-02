@@ -3,7 +3,10 @@ using MediatR;
 using TravelAndAccommodationBookingPlatform.Application.Commands.HotelCommands;
 using TravelAndAccommodationBookingPlatform.Application.DTOs.HotelDtos;
 using TravelAndAccommodationBookingPlatform.Core.Entities;
+using TravelAndAccommodationBookingPlatform.Core.Exceptions;
 using TravelAndAccommodationBookingPlatform.Core.Interfaces;
+
+namespace TravelAndAccommodationBookingPlatform.Application.Handlers.HotelHandlers;
 
 public class UpdateHotelCommandHandler : IRequestHandler<UpdateHotelCommand, HotelDto>
 {
@@ -18,9 +21,15 @@ public class UpdateHotelCommandHandler : IRequestHandler<UpdateHotelCommand, Hot
 
     public async Task<HotelDto> Handle(UpdateHotelCommand request, CancellationToken cancellationToken)
     {
-        var hotel = _mapper.Map<Hotel>(request);
-        await _repository.UpdateAsync(hotel);
+        var hotel = await _repository.GetByIdAsync(request.Id);
+        if (hotel == null)
+            throw new NotFoundException($"Hotel with ID {request.Id} not found.");
+
+        _mapper.Map(request, hotel);
+
+        _repository.UpdateAsync(hotel);
         await _repository.SaveChangesAsync();
+
         return _mapper.Map<HotelDto>(hotel);
     }
 }
