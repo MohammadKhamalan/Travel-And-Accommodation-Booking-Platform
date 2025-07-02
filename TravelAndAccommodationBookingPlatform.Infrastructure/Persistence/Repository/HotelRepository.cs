@@ -225,5 +225,10 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
                 return new List<FeaturedDeal>();
             }
         }
+        public async Task<bool> IsHotelNameAndAddressDuplicateAsync(string name, string address)
+        {
+            return await _context.Hotels
+                .AnyAsync(h => h.Name == name && h.StreetAddress == address);
+        }
     }
 }
