@@ -22,7 +22,7 @@ public class UserSeeding
                     FirstName = "Hiba",
                     LastName = "Al-kurd",
                     Email = "hiba.alkurd@gmail.com",
-                    Password = PasswordHasher.HashPassword("Admin@1234"),
+                   Password = "$2a$11$P3IR5dYddI.cST.jkGUAues/rLi7OYfVWkSCsOiU91eP0ZkJJ0ugi",
                     Role = UserRole.Admin,
                     DateOfBirth = DateTime.Parse("1996-01-01"),
                     PhoneNumber = "+972568543234"
@@ -35,7 +35,7 @@ public class UserSeeding
                     FirstName = "Mohammad",
                     LastName = "Khamalan",
                     Email = "mohammad.khamalan@example.com",
-                    Password = PasswordHasher.HashPassword("Guest@1234"),
+                    Password = "$2a$11$P3IR5dYddI.cST.jkGUAues/rLi7OYfVWkSCsOiU91eP0ZkJJ0ugi",
                     Role = UserRole.Guest,
                     DateOfBirth = DateTime.Parse("2002-03-29"),
                     PhoneNumber = "+972598168640"
@@ -48,7 +48,7 @@ public class UserSeeding
                     FirstName = "Sarah",
                     LastName = "Wilson",
                     Email = "s.wilson@hotelowner.com",
-                    Password = PasswordHasher.HashPassword("Guest@1234"),
+                    Password = "$2a$11$P3IR5dYddI.cST.jkGUAues/rLi7OYfVWkSCsOiU91eP0ZkJJ0ugi",
                     Role = UserRole.Admin,
                     DateOfBirth = DateTime.Parse("1985-08-20"),
                     PhoneNumber = "+972592345654"
