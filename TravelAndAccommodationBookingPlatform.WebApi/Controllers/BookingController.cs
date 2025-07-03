@@ -9,6 +9,13 @@ using TravelAndAccommodationBookingPlatform.Application.Interfaces;
 using TravelAndAccommodationBookingPlatform.Application.Queries.BookingQueries;
 using TravelAndAccommodationBookingPlatform.Core.Interfaces;
 using TravelAndAccommodationBookingPlatform.Core.Models;
+using TravelAndAccommodationBookingPlatform.Core.Entities;
+using TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repository;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+
+using TravelAndAccommodationBookingPlatform.Application.Helpers;
+using TravelAndAccommodationBookingPlatform.Core.Enums;
 
 namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers;
 
@@ -22,6 +29,9 @@ public class BookingController : ControllerBase
     private readonly IPdfGenerator _pdfGenerator;
     private readonly IEmailSender _emailSender;
     private readonly ILogger<BookingController> _logger;
+    private readonly IRoomRepository _roomRepository;
+    private readonly IPendingBookingRepository _pendingBookingRepository;
+    private readonly EmailTemplate _emailTemplate;
 
     public BookingController(
         IMediator mediator,
@@ -29,7 +39,10 @@ public class BookingController : ControllerBase
         IInvoiceService invoiceService,
         IPdfGenerator pdfGenerator,
         IEmailSender emailSender,
-        ILogger<BookingController> logger)
+        ILogger<BookingController> logger,
+        IRoomRepository roomRepository,
+    IPendingBookingRepository pendingBookingRepository,
+    EmailTemplate emailTemplate)
     {
         _mediator = mediator;
         _bookingRepository = bookingRepository;
@@ -37,64 +50,88 @@ public class BookingController : ControllerBase
         _pdfGenerator = pdfGenerator;
         _emailSender = emailSender;
         _logger = logger;
+        _roomRepository = roomRepository;
+        _pendingBookingRepository = pendingBookingRepository;
+        _emailTemplate = emailTemplate;
     }
-
     /// <summary>
-    /// Creates a new booking, generates an invoice PDF, and sends it via email to the guest.
+    /// Creates a new pending booking, generates a draft invoice PDF, and sends it via email to the guest.
     /// </summary>
-    [HttpPost]
+    [HttpPost("pending")]
     [Authorize]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Create([FromBody] BookingCreateDto dto)
+    public async Task<IActionResult> CreatePendingBooking([FromBody] PendingBookingCreateDto dto)
     {
         try
         {
-
             var isAvailable = await _mediator.Send(new CanBookRoomQuery(dto.RoomId, dto.CheckInDate, dto.CheckOutDate));
-
-
             if (!isAvailable)
             {
                 return BadRequest("This room is already booked during the selected date range.");
             }
 
-          
-            var command = new CreateBookingCommand
+            var room = await _roomRepository.GetByIdAsync(dto.RoomId);
+            if (room == null)
             {
-                RoomId = dto.RoomId,
-                UserId = dto.UserId,
-                CheckInDate = dto.CheckInDate,
-                CheckOutDate = dto.CheckOutDate
-            };
-
-            var bookingId = await _mediator.Send(command);
-
-     
-            var invoiceEntity = await _bookingRepository.GetInvoiceByBookingIdAsync(bookingId);
+                return BadRequest("Room not found.");
+            }
+            
+            var invoiceEntity = await _pendingBookingRepository.GetByUserIdAsync(dto.UserId);
             if (invoiceEntity == null)
                 return StatusCode(500, "Failed to fetch invoice details.");
 
-            string guestName = invoiceEntity.GuestName;
-            string guestEmail = invoiceEntity.GuestEmail;
+            string guestName = invoiceEntity.FirstName;
+            string guestEmail = invoiceEntity.Email;
 
-            var html = _invoiceService.GenerateInvoiceHtml(invoiceEntity, guestName);
+           
+
+           
+            var pendingBookingId = Guid.NewGuid();
+
+            var pendingBooking = new PendingBooking
+            {
+                Id = pendingBookingId,
+                RoomId = dto.RoomId,
+                UserId = dto.UserId,
+                CheckInDate = dto.CheckInDate,
+                CheckOutDate = dto.CheckOutDate,
+                CreatedAt = DateTime.UtcNow,
+                Price = (double)room.RoomType.PricePerNight
+            };
+
+            await _pendingBookingRepository.InsertAsync(pendingBooking);
+
+            var invoice = new Invoice
+            {
+                Id = Guid.NewGuid(),
+                BookingDate = DateTime.UtcNow,
+                GuestName = guestName,
+                GuestEmail = guestEmail,
+                HotelName = room.Hotel.Name,
+                OwnerName = $"{room.Hotel.Owner.FirstName} {room.Hotel.Owner.LastName}",
+                Price = (double)room.RoomType.PricePerNight
+            };
+
+            var html = _invoiceService.GenerateInvoiceHtml(invoice, guestName);
             var pdf = await _pdfGenerator.GeneratePdfFromHtml(html);
-            var attachment = new Attachment(new MemoryStream(pdf), "invoice.pdf", MediaTypeNames.Application.Pdf);
+            var attachment = new Attachment(new MemoryStream(pdf), "draft-invoice.pdf", MediaTypeNames.Application.Pdf);
 
-            await _emailSender.SendEmailAsync(guestEmail, "Your Booking Invoice", "Thank you for booking!", attachment);
+            await _emailSender.SendEmailAsync(guestEmail, "Your Booking Draft", "This is your pending booking invoice.", attachment);
 
-            return CreatedAtAction(nameof(GetById), new { bookingId }, bookingId);
+            return CreatedAtAction(nameof(GetById), new { bookingId = pendingBooking.Id }, pendingBooking.Id);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Booking creation or invoice email failed.");
-            return StatusCode(500, "An error occurred during booking.");
+            _logger.LogError(ex, "Pending booking creation or draft invoice email failed.");
+            return StatusCode(500, "An error occurred while creating the pending booking.");
         }
     }
+
+
 
     /// <summary>
     /// Retrieves a booking by ID.
@@ -138,9 +175,18 @@ public class BookingController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid bookingId)
     {
+        var invoice = await _bookingRepository.GetInvoiceByBookingIdAsync(bookingId);
+        if (invoice == null)
+            return NotFound("Booking not found or already deleted.");
+
         await _mediator.Send(new DeleteBookingCommand { BookingId = bookingId });
-        return Ok();
+
+        var (subject, body) = _emailTemplate.GetEmailContent(PaymentStatus.Refunded, invoice.GuestName, invoice.HotelName);
+        await _emailSender.SendEmailAsync(invoice.GuestEmail, subject, body);
+
+        return Ok("Booking deleted and refund notification sent.");
     }
+
 
     /// <summary>
     /// Checks if a booking exists for a guest.
@@ -199,5 +245,24 @@ public class BookingController : ControllerBase
             return StatusCode(500, "An error occurred while generating the invoice PDF.");
         }
     }
+    [HttpDelete("pending/{pendingBookingId}")]
+    [Authorize]
+    public async Task<IActionResult> DeletePendingBooking(Guid pendingBookingId)
+    {
+        var pendingBooking = await _pendingBookingRepository.GetPendingByIdAsync(pendingBookingId);
+        if (pendingBooking == null)
+            return NotFound("Pending booking not found.");
+
+        var guest = await _pendingBookingRepository.GetByUserIdAsync(pendingBooking.UserId);
+        if (guest != null)
+        {
+            var (subject, body) = _emailTemplate.GetEmailContent(PaymentStatus.Cancelled, guest.FirstName, pendingBooking.Room?.Hotel?.Name ?? "the hotel");
+            await _emailSender.SendEmailAsync(guest.Email, subject, body);
+        }
+
+        await _pendingBookingRepository.DeleteAsync(pendingBookingId);
+        return Ok("Pending booking has been cancelled.");
+    }
+
 
 }
