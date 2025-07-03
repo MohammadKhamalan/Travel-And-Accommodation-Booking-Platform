@@ -28,6 +28,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Data
         public DbSet<Image> Images { get; set; }
         public DbSet<Amenity> RoomAmenities { get; set; }
         public DbSet<Discount> Discounts { get; set; }
+        public DbSet<PendingBooking> PendingBookings { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
