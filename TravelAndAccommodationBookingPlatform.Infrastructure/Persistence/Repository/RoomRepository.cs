@@ -71,9 +71,10 @@ public class RoomRepository : IRoomRepository
         try
         {
             return await _context.Rooms
-                .Include(r => r.RoomType)
-                .Include(r => r.Hotel)
-                .FirstOrDefaultAsync(r => r.Id == roomId);
+        .Include(r => r.Hotel)
+            .ThenInclude(h => h.Owner)
+        .Include(r => r.RoomType)
+        .FirstOrDefaultAsync(r => r.Id == roomId);
         }
         catch (Exception ex)
         {
