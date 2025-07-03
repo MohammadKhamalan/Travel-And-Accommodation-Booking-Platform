@@ -2,10 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Stripe;
 using System.Text;
 using TravelAndAccommodationBookingPlatform.Application.Interfaces;
 using TravelAndAccommodationBookingPlatform.Core.Interfaces;
 using TravelAndAccommodationBookingPlatform.Infrastructure.Data;
+using TravelAndAccommodationBookingPlatform.Infrastructure.ExternalServices;
 using TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repository;
 using TravelAndAccommodationBookingPlatform.Infrastructure.Services;
 
@@ -35,10 +37,15 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.DependencyInjecti
             services.AddScoped<IRoomAmenityRepository, RoomAmenityRepository>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IPendingBookingRepository, PendingBookingRepository>();
 
+            StripeConfiguration.ApiKey = configuration["Stripe:SecretKey"];
+
+            services.AddScoped<IPaymentService, StripePaymentService>();
 
             services.AddScoped<ITokenService, JwtTokenService>();
-            services.AddScoped<IInvoiceService, InvoiceService>();
+            services.AddScoped<IInvoiceService, TravelAndAccommodationBookingPlatform.Infrastructure.Services.InvoiceService>();
+
             services.AddScoped<IPdfGenerator, PdfGeneratorService>();
             services.AddScoped<IEmailSender, EmailSender>();
 
