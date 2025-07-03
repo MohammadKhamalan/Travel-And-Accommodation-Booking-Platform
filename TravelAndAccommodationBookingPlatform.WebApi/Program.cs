@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using TravelAndAccommodationBookingPlatform.Application.Commands.UserCommands;
+using TravelAndAccommodationBookingPlatform.Application.Helpers;
 using TravelAndAccommodationBookingPlatform.Application.Profiles;
 using TravelAndAccommodationBookingPlatform.Core.Enums;
 using TravelAndAccommodationBookingPlatform.Infrastructure.DependencyInjection;
@@ -50,6 +51,7 @@ builder.Services.AddControllers()
          
          fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
      });
+builder.Services.AddSingleton<EmailTemplate>();
 
 
 builder.Services.AddSwaggerGen(options =>
