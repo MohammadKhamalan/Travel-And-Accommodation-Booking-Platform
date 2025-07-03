@@ -25,9 +25,11 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Services
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.Role, user.Role.ToString())
+    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+    new Claim(ClaimTypes.Role, user.Role.ToString()),
+    new Claim(ClaimTypes.GivenName, user.FirstName),
+    new Claim(ClaimTypes.Surname, user.LastName)
             };
 
             var token = new JwtSecurityToken(
