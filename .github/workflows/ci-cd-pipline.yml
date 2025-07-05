@@ -3,7 +3,7 @@ name: ci-cd-pipeline
 on:
   push:
     branches:
-      - deployment
+      - Payment/Third-party
 
 jobs:
   build-and-test:
