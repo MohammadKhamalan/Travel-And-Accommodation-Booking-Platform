@@ -2,8 +2,8 @@
 using MediatR;
 using TravelAndAccommodationBookingPlatform.Application.Commands.UserCommands;
 using TravelAndAccommodationBookingPlatform.Core.Entities;
-using TravelAndAccommodationBookingPlatform.Core.Enums;
 using TravelAndAccommodationBookingPlatform.Core.Interfaces;
+using TravelAndAccommodationBookingPlatform.Application.Utils;
 
 namespace TravelAndAccommodationBookingPlatform.Application.Handlers.UserHandlers;
 
@@ -20,6 +20,9 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, Guid>
 
     public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
+      
+        var hashedPassword = PasswordHasher.HashPassword(request.Dto.Password);
+
         var user = new User
         {
             Id = Guid.NewGuid(),
@@ -28,7 +31,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, Guid>
             Email = request.Dto.Email,
             DateOfBirth = request.Dto.DateOfBirth,
             PhoneNumber = request.Dto.PhoneNumber,
-            Password = request.Dto.Password,
+            Password = hashedPassword, 
             Role = request.Dto.Role
         };
 
@@ -36,5 +39,4 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, Guid>
         await _userRepository.SaveChangesAsync();
         return user.Id;
     }
-
 }
