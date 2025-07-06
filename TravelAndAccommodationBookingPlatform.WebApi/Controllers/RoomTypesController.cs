@@ -12,7 +12,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers;
 
 [ApiController]
 [Route("api/room-types")]
-[Authorize(Roles = "Admin")] 
+ 
 public class RoomTypesController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -32,6 +32,7 @@ public class RoomTypesController : ControllerBase
     /// <param name="pageNumber">Page number</param>
     /// <param name="pageSize">Page size</param>
     [HttpGet("{hotelId}")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -66,6 +67,7 @@ public class RoomTypesController : ControllerBase
     /// </summary>
     /// <param name="command">Room type creation command</param>
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -58,6 +58,7 @@ public class CitiesController : ControllerBase
     /// <param name="count">Number of trending cities to retrieve.</param>
     /// <returns>List of trending cities.</returns>
     [HttpGet("trending")]
+    [Authorize]
     [ProducesResponseType(typeof(List<TrendingCityResponseDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetTrending([FromQuery] int count = 5)
@@ -139,6 +140,7 @@ public class CitiesController : ControllerBase
     /// <param name="includeHotels">Include hotels data.</param>
     /// <returns>City details.</returns>
     [HttpGet("{id}")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(CityDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

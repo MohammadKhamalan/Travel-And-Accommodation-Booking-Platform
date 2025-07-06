@@ -29,6 +29,7 @@ public class RoomAmenitiesController : ControllerBase
     /// <param name="pageNumber">Page number (default is 1).</param>
     /// <param name="pageSize">Page size (default is 10).</param>
     [HttpGet]
+    [Authorize]
     [ProducesResponseType(typeof(PaginatedList<RoomAmenityDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -51,6 +52,7 @@ public class RoomAmenitiesController : ControllerBase
     /// </summary>
     /// <param name="id">Amenity ID.</param>
     [HttpGet("{id}")]
+    [Authorize]
     [ProducesResponseType(typeof(RoomAmenityDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

@@ -89,7 +89,7 @@ public class RoomController : ControllerBase
     /// Creates a new room.
     /// </summary>
     [HttpPost]
-    [Authorize(Roles = "Admin,Owner")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -117,7 +117,7 @@ public class RoomController : ControllerBase
     /// <param name="dto">The updated room data.</param>
     /// <returns>The updated room data.</returns>
     [HttpPut("{roomId}")]
-    [Authorize(Roles = "Admin,Owner")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(RoomDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -148,7 +148,7 @@ public class RoomController : ControllerBase
     /// /// <param name="roomId">The ID of the room to delete.</param>
     /// </summary>
     [HttpDelete("{roomId}")]
-    [Authorize(Roles = "Admin,Owner")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TravelAndAccommodationBookingPlatform.Application.Commands.UserCommands;
 using TravelAndAccommodationBookingPlatform.Application.DTOs.UserDtos;
@@ -55,6 +56,7 @@ public class UsersController : ControllerBase
     /// <response code="200">Returns the list of users</response>
     /// <response code="500">If there is an internal server error</response>
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(IEnumerable<UserDto>), 200)]
     [ProducesResponseType(500)]
     public async Task<IActionResult> GetAllUsers()
@@ -80,6 +82,7 @@ public class UsersController : ControllerBase
     /// <response code="404">If user not found</response>
     /// <response code="500">If there is an internal server error</response>
     [HttpGet("{id}")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(UserDto), 200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
@@ -110,6 +113,7 @@ public class UsersController : ControllerBase
     /// <response code="404">User not found</response>
     /// <response code="500">If there is an internal server error</response>
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(204)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
