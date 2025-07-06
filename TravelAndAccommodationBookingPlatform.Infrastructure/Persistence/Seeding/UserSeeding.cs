@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelAndAccommodationBookingPlatform.Core.Entities;
 using TravelAndAccommodationBookingPlatform.Core.Enums;
-using TravelAndAccommodationBookingPlatform.Infrastructure.Utils;
+
 
 namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Seeding;
 
